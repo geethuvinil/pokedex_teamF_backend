@@ -36,7 +36,7 @@ export class SignupService {
            /// const newOtp = this.generateOtp();
             // creating an otp and will be stored in newOtp to store in DB.
            /// userData.emailOtp = newOtp
-            // now we need to save thi otp to the db. So keep it in userData.emailOtp.
+            // now we need to save this otp to the db. So keep it in userData.emailOtp.
             const newUser = await this.userModel.create(userData)
             // creating newUser in Db using create function. Now the db has name,email,phone,password, and otp.
             //newUser['status'] = 'email verification pending'

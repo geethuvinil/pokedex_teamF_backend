@@ -17,7 +17,7 @@ export class LoginService {
         
         const userObj = await this.userModel.findOne({ email: loginCredentials.email, password: loginCredentials.password }).exec();
         const response = {}
-         
+        console.log(loginCredentials.email)
         if(!!userObj){
            
             if(response['statusCode'] = 201){
