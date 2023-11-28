@@ -1,14 +1,14 @@
 import { Controller, Body, Post } from '@nestjs/common';
-import { PasswordResetService } from '../services/reset_password/reset_password.service';
+import { ResetPasswordService } from '../services/reset_password/reset_password.service';
 
 
-@Controller('password')
-export class PasswordResetController {
+@Controller('resetPassword')
+export class ResetPasswordController {
 
-     constructor(private passwordResetService: PasswordResetService){}
+     constructor(private resetPasswordService: ResetPasswordService){}
     @Post('reset')
     async verifyEmail(@Body() credentials){
     console.log(credentials)
-    return this.passwordResetService.resetUserPassword(credentials)
+    return this.resetPasswordService.resetUserPassword(credentials)
 }
-}
+} 

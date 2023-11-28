@@ -4,7 +4,7 @@ import { User } from '../../Schema/user.schema';
 import mongoose from 'mongoose';
 
 @Injectable()
-export class PasswordResetService {
+export class ResetPasswordService {
 
     constructor(
         @InjectModel(User.name)
