@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SignupController } from './signup/signup.controller';
 import { SignupService } from './services/signup/signup.service';
-import { MongooseModule } from '@nestjs/mongoose';
+
 import { userSchema } from './schema/user.schema';
 import { LoginController } from './login/login.controller';
 import { LoginService } from './services/login/login.service';
@@ -15,6 +15,7 @@ import { ResetPasswordController } from './reset_password/reset_password.control
 
 import { ResendOtpController } from './resend-otp/resend-otp.controller';
 import { ResendOtpService } from './services/resend-otp/resend-otp.service';
+import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 
 
 @Module({
