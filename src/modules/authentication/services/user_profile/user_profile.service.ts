@@ -12,12 +12,20 @@ export class UserProfileService {
     ) { }
 
    async getUserDetails(userEmail:string){
+    console.log('00000',userEmail)
     const response = {}
-    const userObj = await this.userModel.findOne({ userEmail}).exec();
-    console.log('jajajaj',userEmail)
+    const userObj = await this.userModel.findOne({email:userEmail}).exec();
+    console.log('jajajaj',userObj)
     if(!!userObj){
-response['statusCode'] =201
+        console.log('33330',userObj)
+        const data = {
+            name: userObj.name,
+            email: userObj.email,
+            mobile: userObj.mobile
+        }
+response['statusCode'] = 201
 response['message'] = 'User details found.'
+response['userData']=data
 //return userObj
  return response
     }

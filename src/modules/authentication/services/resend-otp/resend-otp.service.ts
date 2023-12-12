@@ -8,7 +8,7 @@ export class ResendOtpService {
         @InjectModel(User.name)
         private userModel: mongoose.Model<User>
     ) { }
-  //aaa
+
     async resendOtp(email:string){
         const userObj = await this.userModel.findOne({ email: email }).exec();
        const response = {}

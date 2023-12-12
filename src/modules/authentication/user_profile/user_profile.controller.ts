@@ -1,14 +1,14 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Query } from '@nestjs/common';
 import { UserProfileService } from '../services/user_profile/user_profile.service';
 
-@Controller('user-profile-details')
+@Controller('user')
 export class UserProfileController {
     constructor(private userProfileService:UserProfileService){}
-    @Get('fetch-profile_details')
-    async fetchDetails(@Body() userEmail){
+    @Get('profile')
+    async fetchDetails(@Query() userData){
          
-    console.log(userEmail);
-        return this.userProfileService.getUserDetails(userEmail)
+    console.log(userData.email);
+        return this.userProfileService.getUserDetails(userData.email)
     }
 
 
