@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../../schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
+import * as bcrypt from 'bcrypt';
+import { encodePassword } from 'src/utils/bcrypt';
+
 
 @Injectable()
 export class SignupService {
@@ -17,6 +20,8 @@ export class SignupService {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    
+   
     async isEmailExist(email: string) {
         const user = await this.userModel.findOne({ email }).exec();
         return !!user
@@ -26,6 +31,8 @@ export class SignupService {
     async createUser(userData: User){
         // userData is a variable that has name,email,phone,password initially.
         const response = {}
+        const password = encodePassword(userData.password);
+        console.log(password)
         // response is an empty object which will be used later
         const emailTaken = await this.isEmailExist(userData.email)
         // callling the function isEmailExist to check whether the email is already present or not,
@@ -37,10 +44,11 @@ export class SignupService {
             // creating an otp and will be stored in newOtp to store in DB.
            /// userData.emailOtp = newOtp
             // now we need to save this otp to the db. So keep it in userData.emailOtp.
-            const newUser = await this.userModel.create(userData)
+           
+            const newUser = await this.userModel.create(userData);
             // creating newUser in Db using create function. Now the db has name,email,phone,password, and otp.
             //newUser['status'] = 'email verification pending'
-            
+         newUser.password= password
             newUser.save()
             // saving everything in db
             response['statusCode'] = 201

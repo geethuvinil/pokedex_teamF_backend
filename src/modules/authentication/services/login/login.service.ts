@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../../schema/user.schema';
 import mongoose from 'mongoose';
 import { SignupService } from '../signup/signup.service';
+import { comparePasswords } from 'src/utils/bcrypt';
 
 @Injectable()
 
@@ -14,12 +15,15 @@ export class LoginService {
         // creating objects of userschema and signupservice
     ) { }
     async loginUser(loginCredentials: User){
-        
-        const userObj = await this.userModel.findOne({ email: loginCredentials.email, password: loginCredentials.password }).exec();
+   
+        const userObj = await this.userModel.findOne({ email: loginCredentials.email}).exec();
         const response = {}
         console.log(loginCredentials.email)
         if(!!userObj){
-           
+           const passwordMatches = comparePasswords(loginCredentials.password, userObj.password)
+           console.log('raw',loginCredentials.password)
+           console.log('hashed',userObj.password)
+           if(passwordMatches){
             if(response['statusCode'] = 201){
                 
                 response['name'] = userObj.name
@@ -28,6 +32,8 @@ export class LoginService {
                 response['token'] = userObj._id
                 return response
             }
+           }
+          
             
             // response['statusCode'] = 502
             // response['email'] = userObj.email
