@@ -15,11 +15,14 @@ import { PasswordResetService } from './services/reset_password/reset_password.s
 import { UserProfileController } from './user_profile/user_profile.controller';
 import { UserProfileService } from './services/user_profile/user_profile.service';
 import { PasswordResetController } from './reset_password/reset_password.controller';
+import { ResendOtpController } from './resend_otp/resend_otp.controller';
+import { ResendOtp } from './services/resend_otp/resend_otp.service';
+
 
 @Module({
   imports: [MongooseModule.forFeature([{name: 'User', schema: userSchema}]),],
   // this import allows all the below controllers to access the userSchema
-  controllers: [SignupController, LoginController, ForgotPasswordController, PasswordResetController, UserProfileController],
-  providers: [SignupService, LoginService, ForgotPasswordService, PasswordResetService, UserProfileService]
+  controllers: [SignupController, LoginController, ForgotPasswordController, PasswordResetController, UserProfileController, ResendOtpController],
+  providers: [SignupService, LoginService, ForgotPasswordService, PasswordResetService, UserProfileService,ResendOtp ]
 })
 export class AuthenticationModule {}
