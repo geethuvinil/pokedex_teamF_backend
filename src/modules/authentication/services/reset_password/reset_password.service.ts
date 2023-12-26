@@ -29,16 +29,16 @@ export class PasswordResetService {
         }
     }
 
-    async resetUserPassword(credentials){
-        const email = credentials.email
+    async resetUserPassword(email,newPassword){
+       
         const userObj = await this.userModel.findOne({ email });
         const response = {}
-        console.log(credentials.password,'88888888');
+        console.log(newPassword,'88888888');
         
         if(!!userObj){
-            const newPassword = encodePassword(credentials.password);
-        console.log('resetttttttttttttt',newPassword)
-        userObj.password = newPassword
+            const latestPassword = encodePassword(newPassword);
+        console.log('resetttttttttttttt',latestPassword)
+        userObj.password = latestPassword
             // userObj.password = credentials.password
             userObj.save()
             response['statusCode'] = 201

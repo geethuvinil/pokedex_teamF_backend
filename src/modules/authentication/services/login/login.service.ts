@@ -4,6 +4,7 @@ import { User } from '../../schema/user.schema';
 import mongoose from 'mongoose';
 import { SignupService } from '../signup/signup.service';
 import { comparePasswords } from 'src/utils/bcrypt';
+import { LoginDto } from '../../dto/login_dto';
 
 @Injectable()
 
@@ -14,22 +15,22 @@ export class LoginService {
         private signupService: SignupService
         // creating objects of userschema and signupservice
     ) { }
-    async loginUser(loginCredentials: User){
+    async loginUser(userCredentials: LoginDto){
    
-        const userObj = await this.userModel.findOne({ email: loginCredentials.email}).exec();
+        const userObj = await this.userModel.findOne({ email: userCredentials.email}).exec();
         const response = {}
-        console.log(loginCredentials.email)
+        console.log(userCredentials.email)
         if(!!userObj){
-           const passwordMatches = comparePasswords(loginCredentials.password, userObj.password)
-           console.log('raw',loginCredentials.password)
+           const passwordMatches = comparePasswords(userCredentials.password, userObj.password)
+           console.log('raw',userCredentials.password)
            console.log('hashed',userObj.password)
            if(passwordMatches){
             if(response['statusCode'] = 201){
                 
                 response['name'] = userObj.name
                 /// response['name'] is similiar to response.name
-                
-                response['token'] = userObj._id
+                const token = await this.signupService.getTokens(userObj._id, userObj.email) 
+             //   response['token'] = userObj._id
                 return response
             }
            }

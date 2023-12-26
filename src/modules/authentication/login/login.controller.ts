@@ -6,7 +6,7 @@ export class LoginController {
     constructor(private loginService: LoginService){}
     @Post()
 async login(@Body() loginDetails){
-     
+     console.log('login controller hitted')
 
     return this.loginService.loginUser(loginDetails)
 }
