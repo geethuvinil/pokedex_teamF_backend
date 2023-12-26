@@ -30,7 +30,7 @@ export class LoginService {
                 response['name'] = userObj.name
                 /// response['name'] is similiar to response.name
                 const token = await this.signupService.getTokens(userObj._id, userObj.email) 
-             //   response['token'] = userObj._id
+                response['token'] = userObj._id
                 return response
             }
            }
