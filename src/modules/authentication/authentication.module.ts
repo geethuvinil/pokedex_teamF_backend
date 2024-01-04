@@ -22,12 +22,14 @@ import { LogoutService } from './services/logout/logout.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AccessTokenStrategy } from './services/strategy/access_token.strategy';
 import { RefreshTokenStrategy } from './services/strategy/refresh_token.strategy';
+import { FavoriteController } from './favorite/favorite.controller';
+import { FavoriteService } from './services/favorite/favorite.service';
 
 
 @Module({
   imports: [MongooseModule.forFeature([{name: 'User', schema: userSchema}]), JwtModule.register({})],
   // this import allows all the below controllers to access the userSchema
-  controllers: [SignupController, LoginController, ForgotPasswordController, PasswordResetController, UserProfileController, ResendOtpController, LogoutController],
-  providers: [SignupService, LoginService, ForgotPasswordService, PasswordResetService, UserProfileService,ResendOtp, LogoutService,AccessTokenStrategy,RefreshTokenStrategy ]
+  controllers: [SignupController, LoginController, ForgotPasswordController, PasswordResetController, UserProfileController, ResendOtpController, LogoutController, FavoriteController],
+  providers: [SignupService, LoginService, ForgotPasswordService, PasswordResetService, UserProfileService,ResendOtp, LogoutService,AccessTokenStrategy,RefreshTokenStrategy, FavoriteService ]
 })
 export class AuthenticationModule {}
