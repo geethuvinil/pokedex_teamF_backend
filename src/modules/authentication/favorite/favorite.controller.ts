@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { FavoriteService } from '../services/favorite/favorite.service';
 
 @Controller('favorite')
@@ -15,8 +15,10 @@ export class FavoriteController {
     return this.favoriteService.removeFromFavorites(favDetails)
     }
     @Get('fetch')
-    async fetchFav(@Body() favDetails){
-        console.log('fetch fav controller hitted',favDetails)
-    return this.favoriteService.fetchFavorites(favDetails)
+    async fetchDetails(@Query() userData){
+         console.log('fav controller hitted')
+    console.log(userData.email);
+        return this.favoriteService.fetchFavorites(userData.email)
     }
+  
 }

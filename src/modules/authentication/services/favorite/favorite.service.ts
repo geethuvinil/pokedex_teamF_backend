@@ -80,10 +80,10 @@ export class FavoriteService {
         return response
     }
 
-    async fetchFavorites(details: string) {
-        const userObj = await this.userModel.findOne({ email: details['email'] }).exec();
+    async fetchFavorites(userEmailId: string) {
+        const userObj = await this.userModel.findOne({ email: userEmailId}).exec();
         const response = {}
-        console.log(!!userObj,details['email'])
+        console.log(!!userObj,userEmailId)
         if (!!userObj) {
             console.log('user found')
             if (userObj.favCharacters.length > 0) {
