@@ -18,9 +18,7 @@ export class FavoriteService {
 
         if (!!userObj) {
             console.log('user found')
-            const isExist = await userObj.favCharacters.includes(details['pokeName'])
-            console.log('isExist value', isExist, userObj.favCharacters)
-            if (!isExist) {
+          
                 await userObj.favCharacters.push(details['pokeName'])
                 console.log('current values == ', userObj.favCharacters)
 
@@ -30,11 +28,8 @@ export class FavoriteService {
                 response['message'] = 'Added to favorites'
 
                 return response
-            }
-            response['statusCode'] = 409
-            response['message'] = 'Already added to favorites'
-            return response
-
+            
+           
 
         }
         response['statusCode'] = 500
@@ -103,4 +98,24 @@ export class FavoriteService {
 
     }
 
+    async isFavoriteOrNot(userData:string){
+        const userObj = await this.userModel.findOne({ email: userData['email']}).exec();
+        const response = {}
+        console.log(userData['email'])
+        console.log('id value==',userData['characterId'])
+        if(!!userObj){
+            const isFavorite = userObj.favCharacters.includes(userData['characterId'])
+            console.log('isFav',isFavorite)
+            if(!!isFavorite){
+                response['statusCode'] = 201
+                response['message'] = 'Found in favorite list'
+                response['isFavoriteValue'] = 'yes'
+                return response
+            }
+            response['statusCode'] =500
+            response['message'] = 'Not found in favorite list'
+            response['isFavoriteValue'] = 'no'
+            return response
+        }
+    }
 }
