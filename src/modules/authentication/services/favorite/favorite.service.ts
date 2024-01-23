@@ -22,7 +22,7 @@ export class FavoriteService {
                 await userObj.favCharacters.push(details['pokeName'])
                 console.log('current values == ', userObj.favCharacters)
 
-                userObj.save()
+              await  userObj.save()
                 console.log('fafaffa', userObj)
                 response['statusCode'] = 201
                 response['message'] = 'Added to favorites'
@@ -60,7 +60,7 @@ export class FavoriteService {
                }
 
 
-                userObj.save()
+                await userObj.save()
                 console.log('fafaffa', userObj)
                 response['statusCode'] = 201
                 response['message'] = 'Removed from favorites'
